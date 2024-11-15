@@ -3,10 +3,20 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export default function PersonalForm() {
+  const saveToLocalStorage = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  const loadFromLocalStorage = (key) => {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  };
+
   const router = useRouter();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
+    saveToLocalStorage("personal", data);
     console.log(data); // Save data if needed
     router.push('/application/travel'); // Navigate to the next stage
   };
